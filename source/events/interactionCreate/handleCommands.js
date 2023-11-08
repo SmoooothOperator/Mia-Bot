@@ -26,6 +26,7 @@ module.exports = async (client, interaction) => {
       }
     }
 
+    //See if the command used is admin only
     if (commandObject.adminOnly) {
       if (!admins.includes(interaction.member.id)) {
         interaction.reply({
