@@ -18,12 +18,24 @@ const catMemes = [
   ":CatDance:",
   ":CA100RJI_CatVibin:",
   ":balls:",
+  ":NerdCat:",
+  ":rat_jump:",
+  ":rat_pat:",
+  ":copdootbear:",
+  ":pog_rat:",
+  ":rat_rolled_newspaper:",
+  ":rat_menacing:",
+  ":CB_duck_kisses:",
+  ":bonk:",
 ];
-const replyTargets = ["307977164240846849"];
+const bradmessage = ["cat", "rat"];
+const replyTargets = ["307977164240846849", "551279669979119616"];
 let bradCatCounter = 0;
 
 module.exports = async (client, message) => {
   //Get the message the user sent
+  console.log(message.content);
+
   messageContent = message.content.toString();
   //See if the message includes any stings in catMemes[]
   catDetected = catMemes.some((catMeme) => messageContent.includes(catMeme));
@@ -50,7 +62,17 @@ module.exports = async (client, message) => {
       console.error("Error reacting with emoji:", error);
     }
     message.reply(
-      `Cat Emoji detected, incrementing counter... Bradley now has ${bradCatCounter} strikes.`
+      `Bradley's Illegal Emoji detected, incrementing counter... Bradley now has ${bradCatCounter} warnings. Bradley will be timed out at 50 warnings.`
     );
+  } else if (
+    (replyTargets.includes(message.author.id) &&
+      message.content.toLowerCase().includes("cat")) ||
+    (replyTargets.includes(message.author.id) &&
+      message.content.toLowerCase().includes("rat"))
+  ) {
+    message.reply(
+      `Bradley's message related to cat or rat, incrementing counter... Bradley now has ${bradCatCounter} warnings. Bradley will be timed out at 50 warnings.`
+    );
+    bradCatCounter++;
   }
 };
