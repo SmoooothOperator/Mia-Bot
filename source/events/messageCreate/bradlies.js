@@ -29,7 +29,7 @@ const catMemes = [
   ":bonk:",
 ];
 const bradmessage = ["cat", "rat"];
-const replyTargets = ["307977164240846849", "551279669979119616"];
+const replyTargets = ["307977164240846849"];
 let bradCatCounter = 0;
 
 module.exports = async (client, message) => {
