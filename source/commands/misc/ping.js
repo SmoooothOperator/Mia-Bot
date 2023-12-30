@@ -6,6 +6,6 @@ module.exports = {
   //options:
 
   callback: (client, interaction) => {
-    interaction.reply(`${client.ws.ping}ms`);
+    interaction.reply({ content: `${client.ws.ping}ms`, ephemeral: false });
   },
 };
