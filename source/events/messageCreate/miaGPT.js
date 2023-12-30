@@ -17,7 +17,7 @@ module.exports = async (client, message) => {
     message.channel.sendTyping();
   }, 5000);
 
-  let lessthan2000 = message.content + "\n in less than 2000 characters";
+  let lessthan2000 = message.content;
   try {
     const response = await openai.chat.completions
       .create({
