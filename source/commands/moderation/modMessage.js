@@ -22,7 +22,6 @@ module.exports = {
       required: true,
       type: ApplicationCommandOptionType.String,
     },
-    
   ],
   permissionsRequired: [PermissionFlagsBits.Administrator],
   // botPermissions: [PermissionFlagsBits.Administrator],

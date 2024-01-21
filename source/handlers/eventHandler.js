@@ -15,10 +15,10 @@ module.exports = (client) => {
     //get the name of the event functions (pop gets the last string)
     const eventName = eventFolder.replace(/\\/g, "/").split("/").pop();
 
-    client.on(eventName, async (arg) => {
+    client.on(eventName, async (...args) => {
       for (const eventFile of eventFiles) {
         const eventFunction = require(eventFile);
-        await eventFunction(client, arg);
+        await eventFunction(client, ...args);
       }
     });
   }
