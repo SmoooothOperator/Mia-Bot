@@ -31,8 +31,9 @@ module.exports = {
       if (replyTargets.includes(interaction.user.id)) {
         interaction.reply({
           content: `Use Octopan Steve cannot. For worthy, Steve is not. 🐙🥞`,
-          ephemeral: true,
+          ephemeral: false,
         });
+        return;
       }
       let octopan = "";
       const visability = interaction.options.getBoolean("visable_to_others");
