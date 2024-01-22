@@ -35,7 +35,7 @@ module.exports = {
       let targetUser = client.channels.cache.get("user_to_mention");
 
       if (targetChannel) {
-        targetChannel.send(`${message}`);
+        targetChannel.send(`${message.replace(/\\n/g, "\n")}`);
       }
 
       interaction.reply(`Message sent in <#${channelID}>`);
