@@ -9,7 +9,9 @@ const {
 
 let sent = true;
 
-const ismoji = ["valorant", "leg", "race_car", "rocket"];
+let leftOverMoji = [];
+
+const ismoji = ["valorant", "🦵", "🏎️", "🚀"];
 
 module.exports = async (client) => {
   if (sent === true) {
@@ -32,15 +34,22 @@ module.exports = async (client) => {
     //if the emojis array is not null or empty
     if (emojis) {
       //for every element of emojis
-      for (const emoji of emojis) {
-        console.log(emoji.toString());
+      for (const emoji of emojis.values()) {
+        // console.log(emoji.toString());
         //react with the string representation of the emoji object(required by discord)
-        await sentMessage.react(emoji.toString());
+        await sentMessage.react(emoji);
+        const remove = emoji.name;
+        leftOverMoji = ismoji.filter((element) => element !== remove);
+      }
+      for (const emoji of leftOverMoji) {
+        console.log(emoji);
+        await sentMessage.react(emoji);
       }
     } else {
       console.log("No emojis found");
     }
-    console.log(sentMessage);
+
+    // console.log(sentMessage);
 
     process.exit();
   } catch (error) {

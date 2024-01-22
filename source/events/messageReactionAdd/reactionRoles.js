@@ -44,7 +44,7 @@ module.exports = async (client, reaction, user) => {
       console.log(`Role is ${roleName}`);
       //get reaction Id from Json file
       //roleId is undefined when it is not in the Json file
-      const roleId = roles[roleName];
+      const roleId = roles[roleName.toLowerCase()];
 
       if (roleId != undefined) {
         const member = await reaction.message.guild.members.fetch(user.id);

@@ -15,7 +15,7 @@ module.exports = {
   options: [
     {
       name: "name",
-      description: "The name of the role",
+      description: "The emoji name of the role",
       required: true,
       type: ApplicationCommandOptionType.String,
     },
