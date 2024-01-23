@@ -7,22 +7,30 @@ const {
   ButtonStyle,
 } = require("discord.js");
 
-let sent = true;
+let sent = false;
 
 let leftOverMoji = [];
 
 const ismoji = ["valorant", "🦵", "🏎️", "🚀"];
 
 module.exports = async (client) => {
-  if (sent === true) {
+  if (sent === false) {
     return;
   }
   try {
-    const channel = await client.channels.cache.get("1141162992310960218");
+    const valorant = client.emojis.cache.find(
+      (emoji) => emoji.name === "valorant"
+    );
+    const channel = await client.channels.cache.get("1031416527754362900");
     if (!channel) return;
 
     const sentMessage = await channel.send({
-      content: "React below to claim an activity role",
+      content: `**Wanna be pinged for a topic of interest? React to an emote below to assign a role to yourself to be pinged!**
+      \n -Valorant ${valorant}
+      \n -League of Legends 🦵
+      \n -Rocket League 🚀
+      \n -Sim Racing 🏎️
+      \n`,
       //   components: [row],
     });
 
