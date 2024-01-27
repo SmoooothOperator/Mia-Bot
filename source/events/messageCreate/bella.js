@@ -9,10 +9,12 @@ const ismoji = [
 ];
 const replyTargets = ["714212640767082537"];
 
+const chance = 10;
+
 let randomNumber;
 
 module.exports = async (client, message) => {
-  randomNumber = Math.floor(Math.random() * 5) + 1;
+  randomNumber = Math.floor(Math.random() * chance) + 1;
   //if target includes the message sender id
   if (replyTargets.includes(message.author.id) && randomNumber === 3) {
     console.log(message.content);
@@ -35,8 +37,6 @@ module.exports = async (client, message) => {
     } catch (error) {
       console.error("Error reacting with emoji:", error);
     }
-    message.reply(
-      `Isabela was scared of Matt because of Matt's unpredictable behavior and actions. Whether it was Matt's anger, impulsiveness, or lack of empathy, Matt's actions made Isabela feel afraid and uncertain about what Matt might do next. Matt's unpredictable nature and the potential harm Matt could cause created an atmosphere of fear and intimidation around Matt, ultimately leading to Isabela's fear.`
-    );
+    message.reply(`Fiesta?`);
   }
 };
