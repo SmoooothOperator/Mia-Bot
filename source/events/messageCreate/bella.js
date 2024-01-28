@@ -9,7 +9,7 @@ const ismoji = [
 ];
 const replyTargets = ["714212640767082537"];
 
-const chance = 10;
+const chance = 1;
 
 let randomNumber;
 
@@ -37,6 +37,6 @@ module.exports = async (client, message) => {
     } catch (error) {
       console.error("Error reacting with emoji:", error);
     }
-    message.reply(`Fiesta?`);
+    message.reply(`Bobaliyaftrt`);
   }
 };
