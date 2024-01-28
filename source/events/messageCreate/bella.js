@@ -16,7 +16,7 @@ let randomNumber;
 module.exports = async (client, message) => {
   randomNumber = Math.floor(Math.random() * chance) + 1;
   //if target includes the message sender id
-  if (replyTargets.includes(message.author.id) && randomNumber === 3) {
+  if (replyTargets.includes(message.author.id) && randomNumber === 1) {
     console.log(message.content);
     try {
       //get all emojis that matches the name in randmoji
@@ -37,6 +37,11 @@ module.exports = async (client, message) => {
     } catch (error) {
       console.error("Error reacting with emoji:", error);
     }
-    message.reply(`Bobaliyaftrt`);
+
+    if (message.content.ToLowerCase().includes("fiesta")) {
+      message.reply(`fiesta?`);
+    } else {
+      message.reply(`Bobaliyaftrt`);
+    }
   }
 };
