@@ -63,8 +63,11 @@ module.exports = {
         const index = oldMessage.content.indexOf("0x");
         //get the hexval
         let hexval = oldMessage.content.substring(index + 2);
+        console.log(hexval);
         //convert to deci
         let decival = parseInt(hexval, 16);
+
+        console.log(decival);
 
         //increment or decrement
         if (operation == "increment") {
@@ -74,10 +77,13 @@ module.exports = {
         }
         //convert back to hex
         hexval = decival.toString(16);
+
+        console.log(hexval);
         //uppercase first letter of target
         target = target.charAt(0).toUpperCase() + target.slice(1);
+        console.log(target);
         //make new message
-        edited = `${target}: 0x${decival}`;
+        edited = `${target}: 0x${hexval}`;
         //edit ogMessage
         await oldMessage.edit(edited);
         interaction.reply({ content: "done", ephemeral: true });
