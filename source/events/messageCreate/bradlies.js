@@ -55,11 +55,11 @@ module.exports = async (client, message) => {
 
     if (existing_file.bradCtr == 5) {
       existing_file.bradCtr = 0;
-      message.reply(
+      await message.reply(
         `Bradley has reached 5 warnings, recommend timeout <@${"756272221944676484"}>`
       );
     } else {
-      message.reply(
+      await message.reply(
         `Bradley's Illegal Emoji detected, incrementing counter... Bradley now has ${existing_file.bradCtr} warnings. Bradley will be timed out at 5 warnings.`
       );
     }
@@ -72,11 +72,11 @@ module.exports = async (client, message) => {
     existing_file.bradCtr += 1;
     if (existing_file.bradCtr == 5) {
       existing_file.bradCtr = 0;
-      message.reply(
+      await message.reply(
         `Bradley has reached 5 warnings, recommend timeout <@${"756272221944676484"}>`
       );
     } else {
-      message.reply(
+      await message.reply(
         `Bradley's message related to cat or rat, incrementing counter... Bradley now has ${existing_file.bradCtr} warnings. Bradley will be timed out at 5 warnings.`
       );
     }
