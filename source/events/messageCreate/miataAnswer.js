@@ -6,12 +6,12 @@ function sleep(ms) {
 module.exports = async (client, message) => {
   if (message.content.includes("_IS_") && tiaId.includes(message.author.id)) {
     await sleep(1000);
-    message.reply("_ALWAYS_");
+    await message.reply("_ALWAYS_");
   } else if (
     message.content.includes("_THE_") &&
     tiaId.includes(message.author.id)
   ) {
     await sleep(1000);
-    message.reply("_ANSWER!_");
+    await message.reply("_ANSWER!_");
   }
 };

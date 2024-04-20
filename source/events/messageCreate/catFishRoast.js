@@ -1,4 +1,4 @@
-module.exports = (client, message) => {
+module.exports = async (client, message) => {
   const catFishRoast = [
     "The Catfish is still broken",
     "At this rate, the Catfish will be forever broken",
@@ -21,13 +21,13 @@ module.exports = (client, message) => {
   ) {
     const randomIndex = Math.floor(Math.random() * catFishRoast.length);
     const catFishReply = catFishRoast[randomIndex];
-    message.reply(catFishAlive);
+    await message.reply(catFishAlive);
   } else if (
     replyTargets.includes(message.author.id) &&
     message.content.toLowerCase().includes("mia") &&
     message.content.toLowerCase().includes("running") &&
     message.content.toLowerCase().includes("catfish")
   ) {
-    message.reply(catFishAlive);
+    await message.reply(catFishAlive);
   }
 };

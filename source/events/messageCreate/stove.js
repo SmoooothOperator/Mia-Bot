@@ -34,6 +34,6 @@ module.exports = async (client, message) => {
     } catch (error) {
       console.error("Error reacting with emoji:", error);
     }
-    message.reply(`Steve you Hidiot..`);
+    await message.reply(`Steve you Hidiot..`);
   }
 };

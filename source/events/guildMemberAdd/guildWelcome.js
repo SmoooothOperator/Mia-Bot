@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-module.exports = (client, member) => {
+module.exports = async (client, member) => {
   const ruleChannelID = "812037046616719413";
   const welcomeChannelID = "902108236713426975";
   const memesChannelID = "980291260361351179";
@@ -15,7 +15,7 @@ module.exports = (client, member) => {
   const guildCheck = member.guild.id;
 
   if (welcomeChannel && guildCheck === guildID) {
-    welcomeChannel.send(
+    await welcomeChannel.send(
       `Welcome to Triton Auto Club, ${member}! Make sure to check out <#${ruleChannelID}> so we can verify and grant you access to the server.`
     );
   }
