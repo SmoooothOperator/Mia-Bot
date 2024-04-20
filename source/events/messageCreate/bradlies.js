@@ -1,3 +1,4 @@
+const read_write = require("../../utils/read_write");
 const bradmoji = ["pufferfish", "brad"];
 const catMemes = [
   ":Zyessir:",
@@ -29,10 +30,18 @@ const catMemes = [
   ":bonk:",
 ];
 const bradmessage = ["cat", "rat"];
-const replyTargets = ["307977164240846849"];
+const replyTargets = ["307977164240846849", "551279669979119616"];
+
 let bradCatCounter = 0;
 
 module.exports = async (client, message) => {
+  //Change this to get input from json file
+  let existing_file = await read_write("bradCtr.json", 0);
+  //if file is empty
+  if (!existing_file) {
+    existing_file = {};
+    existing_file.bradCtr = bradCatCounter;
+  }
   //Get the message the user sent
   console.log(message.content);
 
@@ -42,37 +51,38 @@ module.exports = async (client, message) => {
   //if target includes the message sender id
   if (replyTargets.includes(message.author.id) && catDetected === true) {
     console.log(message.content);
-    bradCatCounter++;
-    try {
-      //get all emojis that matches the name in randmoji
-      const emojis = client.emojis.cache.filter((emoji) =>
-        bradmoji.includes(emoji.name)
+    existing_file.bradCtr += 1;
+
+    if (existing_file.bradCtr == 5) {
+      existing_file.bradCtr = 0;
+      message.reply(
+        `Bradley has reached 5 warnings, recommend timeout <@${"756272221944676484"}>`
       );
-      //if the emojis array is not null or empty
-      if (emojis) {
-        //for every element of emojis
-        for (const emoji of emojis) {
-          //react with the string representation of the emoji object(required by discord)
-          await message.react(emoji.toString());
-        }
-      } else {
-        console.log("No emojis found");
-      }
-    } catch (error) {
-      console.error("Error reacting with emoji:", error);
+    } else {
+      message.reply(
+        `Bradley's Illegal Emoji detected, incrementing counter... Bradley now has ${existing_file.bradCtr} warnings. Bradley will be timed out at 5 warnings.`
+      );
     }
-    message.reply(
-      `Bradley's Illegal Emoji detected, incrementing counter... Bradley now has ${bradCatCounter} warnings. Bradley will be timed out at 50 warnings.`
-    );
   } else if (
     (replyTargets.includes(message.author.id) &&
       message.content.toLowerCase().includes("cat")) ||
     (replyTargets.includes(message.author.id) &&
       message.content.toLowerCase().includes("rat"))
   ) {
-    message.reply(
-      `Bradley's message related to cat or rat, incrementing counter... Bradley now has ${bradCatCounter} warnings. Bradley will be timed out at 50 warnings.`
-    );
-    bradCatCounter++;
+    existing_file.bradCtr += 1;
+    if (existing_file.bradCtr == 5) {
+      existing_file.bradCtr = 0;
+      message.reply(
+        `Bradley has reached 5 warnings, recommend timeout <@${"756272221944676484"}>`
+      );
+    } else {
+      message.reply(
+        `Bradley's message related to cat or rat, incrementing counter... Bradley now has ${existing_file.bradCtr} warnings. Bradley will be timed out at 5 warnings.`
+      );
+    }
   }
+
+  //save bradCatCounter to file at the end
+  //Write
+  await read_write("bradCtr.json", 1, existing_file);
 };
