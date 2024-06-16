@@ -78,7 +78,7 @@ module.exports = {
 
         //Execute the compress.exe function
         huffcode = execSync(
-          '"source/huffman/compress.exe" source/huffman/2compress.txt source/huffman/compressed.txt',
+          '"source/huffman/compress" source/huffman/2compress.txt source/huffman/compressed.txt',
           { encoding: "utf8" }
         );
 
@@ -110,7 +110,7 @@ module.exports = {
 
         //uncompress
         execSync(
-          `"source/huffman/uncompress.exe" source/huffman/${final_binary}.txt source/huffman/uncompressed.txt`,
+          `"source/huffman/uncompress" source/huffman/${final_binary}.txt source/huffman/uncompressed.txt`,
           { encoding: "utf8" }
         );
         //read the output file from uncompressed
