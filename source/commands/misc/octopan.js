@@ -3,6 +3,12 @@ const {
   PermissionFlagsBits,
 } = require("discord.js");
 
+//Import the file i/o function
+const read_write = require("../../utils/read_write");
+
+const { exec, execSync, execFileSync } = require("child_process");
+const { stdout } = require("process");
+
 const replyTargets = ["613579814095290398"];
 
 module.exports = {
@@ -19,8 +25,8 @@ module.exports = {
       type: ApplicationCommandOptionType.String,
     },
     {
-      name: "visable_to_others",
-      description: "choose visability",
+      name: "visible_to_others",
+      description: "choose visibility",
       required: true,
       type: ApplicationCommandOptionType.Boolean,
     },
@@ -36,11 +42,13 @@ module.exports = {
         return;
       }
       let octopan = "";
-      const visability = interaction.options.getBoolean("visable_to_others");
+      //If others can see the translated message
+      const visibility = interaction.options.getBoolean("visible_to_others");
       const message = interaction.options.getString("content");
+
+      //Mode
       let toEng = false;
       let toPan = false;
-      console.log(message.length);
 
       //Check translation direction
       if (message.includes("🐙") || message.includes("🥞")) {
@@ -50,44 +58,67 @@ module.exports = {
       }
 
       //To Octopan
+
+      /*
+    Plan for toPan
+    1. Save message to a .txt file (default name of 2compress.txt)
+    2. call compress.exe to compress file, save to file called (compressed.txt)
+    3. read the stdout of compress.exe and save to a variable called huffcode
+    4. rename compressed.txt to what is stored in huffcode
+    6. output the huffcode to the user
+
+    */
       if (toPan) {
-        //Loop through all chars in message
-        for (let i = 0; i < message.length; i++) {
-          //Convert to ASCII
-          const asciiVal = message.charCodeAt(i);
-          //Convert to binary in 8 bits
-          let binary = asciiVal.toString(2).padStart(8, "0").trim();
-          //Replace with octopan
-          binary = binary.replace(/0/g, "🥞").replace(/1/g, "🐙");
-          octopan += binary;
-        }
+        let huffcode;
+        //1.
+        console.log(message);
+        read_write("source\\huffman\\2compress.txt", 2, message);
+
+        //2.
+
+        //Execute the compress.exe function
+        huffcode = execSync(
+          '"source/huffman/compress.exe" source/huffman/2compress.txt source/huffman/compressed.txt',
+          { encoding: "utf8" }
+        );
+
+        console.log(huffcode);
+
+        //Replace with octopan
+        octopan += huffcode.replace(/0/g, "🥞").replace(/1/g, "🐙");
+
+        let trimmed_huffcode = huffcode.split(/\r?\n|\r/).join("");
+        let new_name = "source\\huffman\\" + trimmed_huffcode + ".txt";
+
+        //4.
+        read_write("source\\huffman\\compressed.txt", 3, new_name);
       }
+      /*
+      Plan for toEng
+      1. use the user input message as name to file to decompress
+      2. read the file to decompress with uncompress.exe
+      3. save the result to uncompressed.exe
+      4. read the file of uncompressed.exe and output to user
+
+      */
+      let final_binary = "";
       //To English
       if (toEng) {
-        let byte = "";
-        let counter = 0;
-        //Loop through all Octopan chars
-        for (let j = 0; j < message.length; j += 1) {
-          byte += message[j];
-          counter++;
-          console.log(counter);
-          //Convert at every byte(length 8)
-          if (counter % 16 == 0) {
-            console.log(byte);
-            //Octopan to Binary
-            let binary = byte.replace(/🥞/g, "0").replace(/🐙/g, "1");
-            //Binary to decimal
-            const deci = parseInt(binary, 2);
-            //Decimal to Character using ASCII
-            const character = String.fromCharCode(deci);
-            console.log(character);
-            octopan += character;
-            byte = "";
-          }
-        }
+        final_binary = message.replace(/🥞/g, "0").replace(/🐙/g, "1");
+
+        console.log(final_binary);
+
+        //uncompress
+        execSync(
+          `"source/huffman/uncompress.exe" source/huffman/${final_binary}.txt source/huffman/uncompressed.txt`,
+          { encoding: "utf8" }
+        );
+        //read the output file from uncompressed
+        octopan = await read_write("source\\huffman\\uncompressed.txt", 4);
+        await read_write(`source/huffman/${final_binary}.txt`, 5);
       }
-      // interaction.reply("no");
-      if (visability) {
+
+      if (visibility) {
         interaction.reply(
           `**Original:** ${message}\n**Translation:** ${octopan}`
         );
