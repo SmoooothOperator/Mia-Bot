@@ -52,7 +52,6 @@ module.exports = async (client, message) => {
   if (replyTargets.includes(message.author.id) && catDetected === true) {
     console.log(message.content);
     existing_file.bradCtr += 1;
-
     if (existing_file.bradCtr == 5) {
       existing_file.bradCtr = 0;
       await message.reply(
