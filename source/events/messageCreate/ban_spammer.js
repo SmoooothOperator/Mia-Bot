@@ -5,12 +5,16 @@ module.exports = async (client, message) => {
   let message_lower = message.content.toLowerCase();
   // Get channel ID
   const channelID = message.channel.id;
-  if (
+  let spam = false;
+  if (message_lower.includes("olivia") || message_lower.includes("rodrigo")) {
+    spam = true;
+  } else if (
     message_lower.includes("ticket") &&
-    message_lower.includes("row") &&
-    message_lower.includes("interest") &&
-    channelID == verifyChannelID
+    message_lower.includes("interest")
   ) {
+    spam = true;
+  }
+  if (spam == true && channelID == verifyChannelID) {
     const member = message.member;
     if (member) {
       try {
